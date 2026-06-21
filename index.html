@@ -243,7 +243,7 @@
         }
         .pdf-link:hover { text-decoration: underline; }
 
-        /* ===== CERTIFICATE IMAGES ===== */
+        /* ===== CERTIFICATE IMAGES – FIXED (full visible, larger) ===== */
         .cert-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
         .cert-item {
             background: #fff;
@@ -255,7 +255,7 @@
         }
         .cert-item .img-placeholder {
             width: 100%;
-            aspect-ratio: 16/9;
+            aspect-ratio: 4/3;   /* increased height for larger view */
             background: #f8fafc;
             border: 1px solid #e2e8f0;
             border-radius: 8px;
@@ -264,11 +264,12 @@
             justify-content: center;
             color: #94a3b8;
             font-size: 0.9rem;
+            overflow: hidden;
         }
         .cert-item .img-placeholder img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;  /* shows the full image, no cropping */
         }
         .cert-item p { margin-top: 8px; font-weight: 600; font-size: 0.85rem; }
 
@@ -434,7 +435,7 @@
         </div>
     </section>
 
-    <!-- ===== CERTIFICATES ===== -->
+    <!-- ===== CERTIFICATES – FIXED (full image visible) ===== -->
     <section id="certificates" class="container">
         <div class="section-title"><i class="fa-regular fa-certificate"></i> Certificates &amp; Achievements</div>
         <div class="section-sub">Verified credentials – click to enlarge</div>
