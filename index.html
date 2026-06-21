@@ -4,407 +4,546 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Zedagim Tesfaye Tantu | Digital Irrigation Intelligence</title>
-
-    <!-- ✅ FIX 1: Correct Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- ✅ FIX 2: Correct FontAwesome CDN (this makes your icons work!) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
     <style>
-        html {
-            scroll-behavior: smooth;
+        /* ===== RESET & BASE ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        /* Rotating background for the hero section (farmland from space) */
-        .hero-rotating-bg {
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e2e8f0;
+            z-index: 1000;
+            padding: 16px 0;
+        }
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #059669;
+        }
+        .logo i { margin-right: 8px; }
+        .nav-links a {
+            margin-left: 24px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #475569;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #059669; }
+        .nav-links a:last-child {
+            background: #059669;
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 999px;
+        }
+        .nav-links a:last-child:hover { background: #047857; }
+
+        /* ===== HERO ===== */
+        .hero {
             position: relative;
-            overflow: hidden;
             min-height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            text-align: center;
             background: #f0fdf4;
-            /* fallback light green */
+            overflow: hidden;
+            margin-top: 70px;
         }
-        .hero-rotating-bg::before {
+        .hero::before {
             content: '';
             position: absolute;
             inset: 0;
-            z-index: 0;
-            /* Replace this URL with your own farmland image if you have one, 
-               or rename this to images/farmland-bg.jpg */
             background: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600') center/cover no-repeat;
             animation: spin 25s linear infinite;
             transform: scale(1.1);
         }
         @keyframes spin {
-            0% {
-                transform: rotate(0deg) scale(1.1);
-            }
-            100% {
-                transform: rotate(360deg) scale(1.1);
-            }
+            0% { transform: rotate(0deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1.1); }
         }
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0,0,0,0.45);
             z-index: 1;
         }
         .hero-content {
             position: relative;
             z-index: 2;
+            color: #fff;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(16,185,129,0.3);
+            color: #a7f3d0;
+            border: 1px solid rgba(52,211,153,0.4);
+            padding: 6px 18px;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+        }
+        .hero p.sub {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            font-weight: 300;
+            color: #e2e8f0;
+            margin: 16px 0;
+        }
+        .hero p.quote {
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 20px auto;
+            border-left: 4px solid #34d399;
+            padding-left: 20px;
+            text-align: left;
+            color: #f1f5f9;
+        }
+        .hero .buttons {
+            margin-top: 32px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+        }
+        .btn {
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: #059669;
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(5,150,105,0.4);
+        }
+        .btn-primary:hover { background: #047857; }
+        .btn-outline {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(4px);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .btn-outline:hover { background: rgba(255,255,255,0.2); }
+        .hero-footer {
+            margin-top: 48px;
+            font-size: 0.75rem;
+            color: #6ee7b7;
+            font-weight: 600;
+            letter-spacing: 0.1em;
         }
 
-        .card-hover {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        /* ===== SECTIONS ===== */
+        section { padding: 80px 0; }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        .section-title i { color: #059669; }
+        .section-sub {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 40px;
+        }
+
+        /* ===== CARDS ===== */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            transition: all 0.25s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+        }
+        .card .icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+        .icon-green { background: #ecfdf5; color: #059669; }
+        .icon-blue { background: #eff6ff; color: #2563eb; }
+        .icon-amber { background: #fffbeb; color: #d97706; }
+
+        .card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .card p, .card li { font-size: 0.9rem; color: #475569; }
+        .card ul { list-style: none; padding: 0; }
+        .card ul li { padding: 4px 0; }
+        .card ul li i { color: #059669; margin-right: 8px; }
+
+        .badge-pdf {
+            font-size: 0.65rem;
+            color: #94a3b8;
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 999px;
+            display: inline-block;
+            margin-top: 8px;
+        }
+        .pdf-link {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #059669;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+        }
+        .pdf-link:hover { text-decoration: underline; }
+
+        /* ===== CERTIFICATE IMAGES ===== */
+        .cert-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .cert-item {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            text-align: center;
+            padding: 12px;
+        }
+        .cert-item .img-placeholder {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        .cert-item .img-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .cert-item p { margin-top: 8px; font-weight: 600; font-size: 0.85rem; }
+
+        /* ===== CONTACT ===== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .contact-info { display: flex; flex-direction: column; gap: 20px; }
+        .contact-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .contact-card h4 { font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .contact-card a { color: #059669; font-weight: 600; }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: 2px solid #059669;
+            border-color: transparent;
+        }
+        .contact-form button {
+            background: #059669;
+            color: #fff;
+            border: none;
+            padding: 14px;
+            width: 100%;
+            border-radius: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            transition: background 0.2s;
+        }
+        .contact-form button:hover { background: #047857; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 32px 0;
+            text-align: center;
+            font-size: 0.8rem;
+            border-top: 1px solid #1e293b;
+        }
+        footer span { color: #fff; font-weight: 600; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .cert-grid, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links a { margin-left: 12px; font-size: 0.6rem; }
+            .nav-links a:last-child { padding: 6px 14px; }
         }
     </style>
 </head>
+<body>
 
-<body class="bg-white text-slate-800 antialiased">
-
-    <!-- ============================================================ -->
-    <!--  NAVIGATION                                                   -->
-    <!-- ============================================================ -->
-    <nav class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md z-50 shadow-sm border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <span class="text-lg font-extrabold text-emerald-600 flex items-center gap-2">
-                <i class="fa-solid fa-satellite-dish"></i> DigiIrri
-            </span>
-            <div class="hidden md:flex space-x-6 text-xs font-semibold uppercase tracking-wider text-slate-600">
-                <a href="#home" class="hover:text-emerald-600 transition">Home</a>
-                <a href="#about" class="hover:text-emerald-600 transition">About</a>
-                <a href="#projects" class="hover:text-emerald-600 transition">Projects</a>
-                <a href="#certificates" class="hover:text-emerald-600 transition">Certificates</a>
-                <a href="#mission" class="hover:text-emerald-600 transition">Mission</a>
-                <a href="#contact" class="hover:text-emerald-600 transition">Contact</a>
+    <!-- ===== NAVIGATION ===== -->
+    <nav>
+        <div class="container">
+            <div class="logo"><i class="fa-solid fa-satellite-dish"></i> DigiIrri</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#certificates">Certificates</a>
+                <a href="#mission">Mission</a>
+                <a href="#contact">Contact</a>
             </div>
         </div>
     </nav>
 
-    <!-- ============================================================ -->
-    <!--  HERO – With rotating farmland background                     -->
-    <!-- ============================================================ -->
-    <section id="home" class="hero-rotating-bg">
+    <!-- ===== HERO ===== -->
+    <section id="home" class="hero">
         <div class="hero-overlay"></div>
-        <div class="hero-content max-w-4xl mx-auto px-6 text-center text-white">
-            <span class="inline-block bg-emerald-500/30 text-emerald-200 border border-emerald-400/40 text-xs font-extrabold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">
-                <i class="fa-regular fa-eye mr-1"></i> See Your Land from Space
-            </span>
-            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
-                Zedagim Tesfaye Tantu
-            </h1>
-            <p class="mt-3 text-lg md:text-xl font-light text-slate-100">
-                Water Resources &amp; Irrigation Engineer · Satellite Geospatial Data Architect
-            </p>
-            <p class="mt-6 text-sm md:text-base max-w-2xl mx-auto text-slate-100 border-l-4 border-emerald-400 pl-4 text-left md:text-center">
-                <i class="fa-solid fa-quote-left text-emerald-400 mr-1"></i>
-                Bringing real‑time satellite data directly to farmers, NGOs, and governments in their own language – for drought prediction, flood risk, and climate‑smart decisions.
-            </p>
-            <div class="mt-10 flex flex-wrap gap-4 justify-center">
-                <a href="#projects" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider px-8 py-4 rounded-lg shadow-lg shadow-emerald-900/40 transition flex items-center gap-2">
-                    <i class="fa-regular fa-folder-open"></i> Explore My Work
-                </a>
-                <a href="#contact" class="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border border-white/30 text-xs font-bold uppercase tracking-wider px-8 py-4 rounded-lg transition flex items-center gap-2">
-                    <i class="fa-regular fa-paper-plane"></i> Contact Me
-                </a>
+        <div class="hero-content">
+            <div class="hero-badge"><i class="fa-regular fa-eye"></i> See Your Land from Space</div>
+            <h1>Zedagim Tesfaye Tantu</h1>
+            <p class="sub">Water Resources &amp; Irrigation Engineer · Satellite Geospatial Data Architect</p>
+            <p class="quote"><i class="fa-solid fa-quote-left" style="color: #34d399; margin-right: 6px;"></i> Bringing real‑time satellite data directly to farmers, NGOs, and governments in their own language – for drought prediction, flood risk, and climate‑smart decisions.</p>
+            <div class="buttons">
+                <a href="#projects" class="btn btn-primary"><i class="fa-regular fa-folder-open"></i> Explore My Work</a>
+                <a href="#contact" class="btn btn-outline"><i class="fa-regular fa-paper-plane"></i> Contact Me</a>
             </div>
-            <p class="mt-8 text-xs text-emerald-300 font-semibold tracking-widest">
-                <i class="fa-solid fa-shield-halved mr-1"></i> Protect your farmland – monitor by system
-            </p>
+            <div class="hero-footer"><i class="fa-solid fa-shield-halved"></i> Protect your farmland – monitor by system</div>
         </div>
     </section>
 
-    <!-- ============================================================ -->
-    <!--  ABOUT – Education, CGPA, Courses, British Training          -->
-    <!-- ============================================================ -->
-    <section id="about" class="py-20 px-6 max-w-7xl mx-auto">
-        <div class="border-b border-slate-200 pb-6 mb-12">
-            <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
-                <i class="fa-regular fa-user text-emerald-600"></i> About Me
-            </h2>
-            <p class="text-xs text-slate-500 mt-1">Academic excellence &amp; field‑tested diplomacy</p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- Education Card -->
-            <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm card-hover">
-                <div class="text-emerald-600 text-xl mb-4"><i class="fa-solid fa-graduation-cap"></i></div>
-                <h3 class="text-lg font-bold text-slate-900">Education</h3>
-                <p class="text-emerald-600 font-semibold text-sm">B.Sc. in Water Resources and Irrigation Engineering</p>
-                <p class="text-2xl font-black text-slate-800 mt-1">CGPA: 3.87 / 4.0 <span class="text-sm font-normal text-slate-400">(96.75%)</span></p>
-
-                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mt-6 mb-3">Core Engineering Courses</h4>
-                <ul class="space-y-2 text-sm text-slate-600">
-                    <li><span class="font-bold text-emerald-600">1.</span> Geographic Information Systems (GIS) &amp; Remote Sensing</li>
-                    <li><span class="font-bold text-emerald-600">2.</span> Irrigation Water Management</li>
-                    <li><span class="font-bold text-emerald-600">3.</span> Software Applications in Water Resources &amp; Irrigation</li>
-                    <li><span class="font-bold text-emerald-600">4.</span> AutoCAD Applications in Water Resources</li>
-                    <li><span class="font-bold text-emerald-600">5.</span> Project Planning &amp; Management</li>
-                    <li><span class="font-bold text-emerald-600">6.</span> Drip &amp; Sprinkler Irrigation Systems</li>
-                    <li><span class="font-bold text-emerald-600">7.</span> Water Supply Engineering</li>
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="container">
+        <div class="section-title"><i class="fa-regular fa-user"></i> About Me</div>
+        <div class="section-sub">Academic excellence &amp; field‑tested diplomacy</div>
+        <div class="grid-2">
+            <div class="card">
+                <div class="icon-box icon-green"><i class="fa-solid fa-graduation-cap"></i></div>
+                <h3>Education</h3>
+                <p><strong style="color: #059669;">B.Sc. in Water Resources and Irrigation Engineering</strong></p>
+                <p style="font-size: 1.5rem; font-weight: 900; margin: 8px 0;">CGPA: 3.87 / 4.0 <span style="font-size: 0.9rem; font-weight: 400; color: #64748b;">(96.75%)</span></p>
+                <h4 style="margin-top: 20px; font-size: 0.75rem; text-transform: uppercase; color: #94a3b8;">Core Engineering Courses</h4>
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i> GIS &amp; Remote Sensing</li>
+                    <li><i class="fa-regular fa-circle-check"></i> Irrigation Water Management</li>
+                    <li><i class="fa-regular fa-circle-check"></i> Software Applications in Water Resources</li>
+                    <li><i class="fa-regular fa-circle-check"></i> AutoCAD Applications</li>
+                    <li><i class="fa-regular fa-circle-check"></i> Project Planning &amp; Management</li>
+                    <li><i class="fa-regular fa-circle-check"></i> Drip &amp; Sprinkler Systems</li>
+                    <li><i class="fa-regular fa-circle-check"></i> Water Supply Engineering</li>
                 </ul>
             </div>
-
-            <!-- Cross-cultural & British Home Office Card -->
-            <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm card-hover">
-                <div class="text-blue-600 text-xl mb-4"><i class="fa-solid fa-earth-africa"></i></div>
-                <h3 class="text-lg font-bold text-slate-900">Cross‑Border &amp; Humanitarian Work</h3>
-                <p class="text-sm text-slate-600 leading-relaxed">
-                    Worked extensively in highly sensitive geopolitical zones with stakeholders from the
-                    <strong>UK, Kenya, Ethiopia, Uganda, and South Africa</strong>, adapting to diverse cultural contexts.
-                </p>
-                <div class="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-100 text-sm">
-                    <span class="font-bold text-blue-700 block uppercase tracking-wide">
-                        <i class="fa-regular fa-certificate mr-1"></i> British Home Office Training
-                    </span>
-                    <p class="text-slate-600 mt-1 leading-relaxed">
-                        Trained in the <strong>debrief interview technique</strong> – formulating open, closed, and probing questions to uncover root causes. Conducted <strong>over 200 interviews</strong> with potential victims to map systemic challenges.
-                    </p>
+            <div class="card">
+                <div class="icon-box icon-blue"><i class="fa-solid fa-earth-africa"></i></div>
+                <h3>Cross‑Border &amp; Humanitarian Work</h3>
+                <p>Worked extensively in highly sensitive geopolitical zones with stakeholders from the <strong>UK, Kenya, Ethiopia, Uganda, and South Africa</strong>.</p>
+                <div style="background: #eff6ff; padding: 16px; border-radius: 12px; margin-top: 16px; border-left: 4px solid #2563eb;">
+                    <p style="font-weight: 700; color: #1e3a8a;"><i class="fa-regular fa-certificate"></i> British Home Office Training</p>
+                    <p style="font-size: 0.9rem;">Trained in the <strong>debrief interview technique</strong> – conducting over 200 interviews with potential victims to map systemic challenges.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ============================================================ -->
-    <!--  PROJECTS – Linked to your exact PDFs                        -->
-    <!-- ============================================================ -->
-    <section id="projects" class="py-20 px-6 bg-slate-50 border-t border-slate-200">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-10">
-                <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
-                    <i class="fa-regular fa-file-pdf text-emerald-600"></i> Featured Projects
-                </h2>
-                <p class="text-xs text-slate-500 mt-1">Satellite‑driven farmland monitoring – live dashboards &amp; PDF reports</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Project 1: Canada Cluster -->
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm card-hover flex flex-col">
-                    <span class="text-[10px] font-mono text-slate-400 block mb-1">documents/canada-cluster.pdf</span>
-                    <h4 class="font-bold text-slate-900 flex items-center gap-2">
-                        <i class="fa-regular fa-location-dot text-emerald-500"></i> Canada Saskatchewan
-                    </h4>
-                    <p class="text-xs text-slate-500 mt-1 flex-grow">
-                        Regional Farm Asset Tracking Cluster – coordinates <strong>52.1327, -106.6643</strong>.
-                        Remote satellite data integrated into a live dashboard.
-                    </p>
-                    <div class="mt-4 flex items-center gap-2 text-xs text-slate-400">
-                        <i class="fa-regular fa-file-pdf text-red-500"></i> PDF report
-                        <a href="documents/canada-cluster.pdf" target="_blank" class="text-emerald-600 hover:underline ml-auto font-semibold">View PDF <i class="fa-regular fa-arrow-up-right-from-square ml-1"></i></a>
-                    </div>
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects" style="background: #f8fafc; padding: 80px 0;">
+        <div class="container">
+            <div class="section-title"><i class="fa-regular fa-file-pdf"></i> Featured Projects</div>
+            <div class="section-sub">Satellite‑driven farmland monitoring – live dashboards &amp; PDF reports</div>
+            <div class="grid-3">
+                <!-- Canada -->
+                <div class="card">
+                    <span class="badge-pdf">documents/canada-cluster.pdf</span>
+                    <h4 style="margin-top: 8px;"><i class="fa-regular fa-location-dot" style="color: #059669;"></i> Canada Saskatchewan</h4>
+                    <p>Regional Farm Asset Tracking Cluster – coordinates 52.1327, -106.6643. Remote satellite data integrated into a live dashboard.</p>
+                    <a href="documents/canada-cluster.pdf" target="_blank" class="pdf-link"><i class="fa-regular fa-file-pdf" style="color: #dc2626;"></i> View PDF <i class="fa-regular fa-arrow-up-right-from-square"></i></a>
                 </div>
-
-                <!-- Project 2: Gode Farm -->
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm card-hover flex flex-col">
-                    <span class="text-[10px] font-mono text-slate-400 block mb-1">documents/gode-farm.pdf</span>
-                    <h4 class="font-bold text-slate-900 flex items-center gap-2">
-                        <i class="fa-regular fa-seedling text-emerald-500"></i> Gode Farm
-                    </h4>
-                    <p class="text-xs text-slate-500 mt-1 flex-grow">
-                        Detailed farm‑level analysis using multispectral satellite imagery to optimise irrigation.
-                    </p>
-                    <div class="mt-4 flex items-center gap-2 text-xs text-slate-400">
-                        <i class="fa-regular fa-file-pdf text-red-500"></i> PDF report
-                        <a href="documents/gode-farm.pdf" target="_blank" class="text-emerald-600 hover:underline ml-auto font-semibold">View PDF <i class="fa-regular fa-arrow-up-right-from-square ml-1"></i></a>
-                    </div>
+                <!-- Gode -->
+                <div class="card">
+                    <span class="badge-pdf">documents/gode-farm.pdf</span>
+                    <h4 style="margin-top: 8px;"><i class="fa-regular fa-seedling" style="color: #059669;"></i> Gode Farm</h4>
+                    <p>Detailed farm‑level analysis using multispectral satellite imagery to optimise irrigation and crop health.</p>
+                    <a href="documents/gode-farm.pdf" target="_blank" class="pdf-link"><i class="fa-regular fa-file-pdf" style="color: #dc2626;"></i> View PDF <i class="fa-regular fa-arrow-up-right-from-square"></i></a>
                 </div>
-
-                <!-- Project 3: Zeway Farm -->
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm card-hover flex flex-col">
-                    <span class="text-[10px] font-mono text-slate-400 block mb-1">documents/zeway-farm.pdf</span>
-                    <h4 class="font-bold text-slate-900 flex items-center gap-2">
-                        <i class="fa-regular fa-water text-emerald-500"></i> Zeway Farm
-                    </h4>
-                    <p class="text-xs text-slate-500 mt-1 flex-grow">
-                        Water resource assessment and flood‑risk mapping using historical satellite data.
-                    </p>
-                    <div class="mt-4 flex items-center gap-2 text-xs text-slate-400">
-                        <i class="fa-regular fa-file-pdf text-red-500"></i> PDF report
-                        <a href="documents/zeway-farm.pdf" target="_blank" class="text-emerald-600 hover:underline ml-auto font-semibold">View PDF <i class="fa-regular fa-arrow-up-right-from-square ml-1"></i></a>
-                    </div>
+                <!-- Zeway -->
+                <div class="card">
+                    <span class="badge-pdf">documents/zeway-farm.pdf</span>
+                    <h4 style="margin-top: 8px;"><i class="fa-regular fa-water" style="color: #059669;"></i> Zeway Farm</h4>
+                    <p>Water resource assessment and flood‑risk mapping using historical satellite data and climate models.</p>
+                    <a href="documents/zeway-farm.pdf" target="_blank" class="pdf-link"><i class="fa-regular fa-file-pdf" style="color: #dc2626;"></i> View PDF <i class="fa-regular fa-arrow-up-right-from-square"></i></a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ============================================================ -->
-    <!--  CERTIFICATES – Matched to your exact image names            -->
-    <!-- ============================================================ -->
-    <section id="certificates" class="py-20 px-6 max-w-7xl mx-auto">
-        <div class="mb-10">
-            <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
-                <i class="fa-regular fa-certificate text-emerald-600"></i> Certificates &amp; Achievements
-            </h2>
-            <p class="text-xs text-slate-500 mt-1">Verified credentials – click to enlarge</p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <!-- Cert 1: AI Certificate (ai-cert.jpg) -->
-            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm card-hover text-center">
-                <div class="aspect-video bg-slate-50 border border-slate-200 rounded overflow-hidden flex items-center justify-center text-slate-300">
-                    <img src="images/ai-cert.jpg" alt="AI Certificate" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fa-regular fa-image text-4xl text-slate-300\'></i><span class=\'sr-only\'>AI Certificate</span>'" />
+    <!-- ===== CERTIFICATES ===== -->
+    <section id="certificates" class="container">
+        <div class="section-title"><i class="fa-regular fa-certificate"></i> Certificates &amp; Achievements</div>
+        <div class="section-sub">Verified credentials – click to enlarge</div>
+        <div class="cert-grid">
+            <!-- AI -->
+            <div class="cert-item">
+                <div class="img-placeholder">
+                    <img src="images/ai-cert.jpg" alt="AI Certificate" onerror="this.parentElement.innerHTML='<i class=\'fa-regular fa-image\'></i> Image not found'" />
                 </div>
-                <p class="text-xs font-semibold text-slate-700 mt-2">AI &amp; Machine Learning Certificate</p>
+                <p>AI &amp; Machine Learning Certificate</p>
             </div>
-
-            <!-- Cert 2: British Training (british-cert.jpg) -->
-            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm card-hover text-center">
-                <div class="aspect-video bg-slate-50 border border-slate-200 rounded overflow-hidden flex items-center justify-center text-slate-300">
-                    <img src="images/british-cert.jpg" alt="British Home Office Training" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fa-regular fa-image text-4xl text-slate-300\'></i><span class=\'sr-only\'>British Training</span>'" />
+            <!-- British -->
+            <div class="cert-item">
+                <div class="img-placeholder">
+                    <img src="images/british-cert.jpg" alt="British Training" onerror="this.parentElement.innerHTML='<i class=\'fa-regular fa-image\'></i> Image not found'" />
                 </div>
-                <p class="text-xs font-semibold text-slate-700 mt-2">British Home Office Debrief Training</p>
+                <p>British Home Office Debrief Training</p>
             </div>
-
-            <!-- Cert 3: Python Certificate (python-cert.jpg) -->
-            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm card-hover text-center">
-                <div class="aspect-video bg-slate-50 border border-slate-200 rounded overflow-hidden flex items-center justify-center text-slate-300">
-                    <img src="images/python-cert.jpg" alt="Python for Data Science" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fa-regular fa-image text-4xl text-slate-300\'></i><span class=\'sr-only\'>Python Certificate</span>'" />
+            <!-- Python -->
+            <div class="cert-item">
+                <div class="img-placeholder">
+                    <img src="images/python-cert.jpg" alt="Python Certificate" onerror="this.parentElement.innerHTML='<i class=\'fa-regular fa-image\'></i> Image not found'" />
                 </div>
-                <p class="text-xs font-semibold text-slate-700 mt-2">Python for Data Science</p>
+                <p>Python for Data Science</p>
             </div>
         </div>
-
-        <!-- Extra: Graduation & Team Photo -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
-            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm card-hover text-center">
-                <div class="aspect-video bg-slate-50 border border-slate-200 rounded overflow-hidden flex items-center justify-center text-slate-300">
-                    <img src="images/graduation-ceremony.jpg" alt="Graduation Ceremony" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fa-regular fa-image text-4xl text-slate-300\'></i><span class=\'sr-only\'>Graduation</span>'" />
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px;">
+            <div class="cert-item">
+                <div class="img-placeholder">
+                    <img src="images/graduation-ceremony.jpg" alt="Graduation" onerror="this.parentElement.innerHTML='<i class=\'fa-regular fa-image\'></i> Image not found'" />
                 </div>
-                <p class="text-xs font-semibold text-slate-700 mt-2">Graduation Ceremony</p>
+                <p>Graduation Ceremony</p>
             </div>
-            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm card-hover text-center">
-                <div class="aspect-video bg-slate-50 border border-slate-200 rounded overflow-hidden flex items-center justify-center text-slate-300">
-                    <img src="images/team-photo.jpg" alt="Team Photo" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fa-regular fa-image text-4xl text-slate-300\'></i><span class=\'sr-only\'>Team Photo</span>'" />
+            <div class="cert-item">
+                <div class="img-placeholder">
+                    <img src="images/team-photo.jpg" alt="Team Photo" onerror="this.parentElement.innerHTML='<i class=\'fa-regular fa-image\'></i> Image not found'" />
                 </div>
-                <p class="text-xs font-semibold text-slate-700 mt-2">Team Collaboration</p>
+                <p>Team Collaboration</p>
             </div>
         </div>
-        <p class="text-xs text-slate-400 text-center mt-4">
-            <i class="fa-regular fa-folder-open mr-1"></i> Your images are loading from the <code class="bg-slate-100 px-1.5 py-0.5 rounded">images/</code> folder.
-        </p>
+        <p style="font-size: 0.8rem; color: #94a3b8; text-align: center; margin-top: 20px;"><i class="fa-regular fa-folder-open"></i> Images are loaded from the <code>images/</code> folder.</p>
     </section>
 
-    <!-- ============================================================ -->
-    <!--  MISSION                                                      -->
-    <!-- ============================================================ -->
-    <section id="mission" class="py-20 px-6 bg-slate-50 border-t border-slate-200">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-10">
-                <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
-                    <i class="fa-regular fa-bullseye text-emerald-600"></i> Our Core Mission
-                </h2>
-                <p class="text-xs text-slate-500 mt-1">Satellite geospatial data → actionable intelligence in your local language</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm card-hover text-center">
-                    <div class="w-14 h-14 mx-auto bg-emerald-50 rounded-full flex items-center justify-center text-emerald-600 text-2xl mb-4">
-                        <i class="fa-regular fa-satellite"></i>
-                    </div>
-                    <h3 class="font-bold text-slate-900">Real‑time Satellite Data</h3>
-                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">
-                        Harnessing Sentinel, Landsat, and MODIS to monitor soil moisture, vegetation health, and water bodies.
-                    </p>
+    <!-- ===== MISSION ===== -->
+    <section id="mission" style="background: #f8fafc; padding: 80px 0;">
+        <div class="container">
+            <div class="section-title"><i class="fa-regular fa-bullseye"></i> Our Core Mission</div>
+            <div class="section-sub">Satellite geospatial data → actionable intelligence in your local language</div>
+            <div class="grid-3">
+                <div class="card" style="text-align: center;">
+                    <div class="icon-box icon-green" style="margin: 0 auto 16px;"><i class="fa-regular fa-satellite"></i></div>
+                    <h3>Real‑time Satellite Data</h3>
+                    <p>Harnessing Sentinel, Landsat, and MODIS to monitor soil moisture, vegetation health, and water bodies.</p>
                 </div>
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm card-hover text-center">
-                    <div class="w-14 h-14 mx-auto bg-blue-50 rounded-full flex items-center justify-center text-blue-600 text-2xl mb-4">
-                        <i class="fa-regular fa-language"></i>
-                    </div>
-                    <h3 class="font-bold text-slate-900">Local Language Translation</h3>
-                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">
-                        Breaking the scientific barrier – translating complex geospatial outputs into clear, simple advice.
-                    </p>
+                <div class="card" style="text-align: center;">
+                    <div class="icon-box icon-blue" style="margin: 0 auto 16px;"><i class="fa-regular fa-language"></i></div>
+                    <h3>Local Language Translation</h3>
+                    <p>Breaking the scientific barrier – translating complex geospatial outputs into clear, simple advice.</p>
                 </div>
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm card-hover text-center">
-                    <div class="w-14 h-14 mx-auto bg-amber-50 rounded-full flex items-center justify-center text-amber-600 text-2xl mb-4">
-                        <i class="fa-regular fa-cloud-rain"></i>
-                    </div>
-                    <h3 class="font-bold text-slate-900">Climate &amp; Disaster Resilience</h3>
-                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">
-                        Early warnings for drought and floods – enabling governments and NGOs to plan ahead.
-                    </p>
+                <div class="card" style="text-align: center;">
+                    <div class="icon-box icon-amber" style="margin: 0 auto 16px;"><i class="fa-regular fa-cloud-rain"></i></div>
+                    <h3>Climate &amp; Disaster Resilience</h3>
+                    <p>Early warnings for drought and floods – enabling governments and NGOs to plan ahead.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ============================================================ -->
-    <!--  CONTACT – Email, WhatsApp, Form                             -->
-    <!-- ============================================================ -->
-    <section id="contact" class="py-20 px-6 max-w-7xl mx-auto">
-        <div class="text-center mb-12">
-            <h2 class="text-2xl font-bold text-slate-900 flex items-center justify-center gap-2">
-                <i class="fa-regular fa-paper-plane text-emerald-600"></i> Get in Touch
-            </h2>
-            <p class="text-xs text-slate-500 mt-1">Let’s collaborate – I’m ready to bring satellite intelligence to your project</p>
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="container" style="padding: 80px 0;">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <div class="section-title" style="justify-content: center;"><i class="fa-regular fa-paper-plane"></i> Get in Touch</div>
+            <div class="section-sub">Let’s collaborate – I’m ready to bring satellite intelligence to your project</div>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <!-- Left: Contact details -->
-            <div class="space-y-6">
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <h3 class="font-bold text-slate-900 flex items-center gap-2"><i class="fa-regular fa-envelope text-emerald-600"></i> Email</h3>
-                    <a href="mailto:digitalirrigation@gmail.com" class="text-emerald-600 hover:underline">digitalirrigation@gmail.com</a>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="contact-card">
+                    <h4><i class="fa-regular fa-envelope" style="color: #059669;"></i> Email</h4>
+                    <a href="mailto:digitalirrigation@gmail.com">digitalirrigation@gmail.com</a>
                 </div>
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <h3 class="font-bold text-slate-900 flex items-center gap-2"><i class="fa-brands fa-whatsapp text-green-600"></i> WhatsApp</h3>
-                    <a href="https://wa.me/251924700390" target="_blank" class="text-emerald-600 hover:underline">+251 924 700 390</a>
+                <div class="contact-card">
+                    <h4><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> WhatsApp</h4>
+                    <a href="https://wa.me/251924700390" target="_blank">+251 924 700 390</a>
                 </div>
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <h3 class="font-bold text-slate-900 flex items-center gap-2"><i class="fa-regular fa-location-dot text-emerald-600"></i> Location</h3>
-                    <p class="text-sm text-slate-600">Ethiopia / Global – available for remote or on‑site missions</p>
+                <div class="contact-card">
+                    <h4><i class="fa-regular fa-location-dot" style="color: #059669;"></i> Location</h4>
+                    <p>Ethiopia / Global – available for remote or on‑site missions</p>
                 </div>
             </div>
-
-            <!-- Right: Contact Form -->
-            <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm">
-                <form action="#" method="POST" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Your Name</label>
-                        <input type="text" placeholder="Full name" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent" />
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Email Address</label>
-                        <input type="email" placeholder="you@example.com" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent" />
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Country</label>
-                        <input type="text" placeholder="Your country" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent" />
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Subject</label>
-                        <input type="text" placeholder="e.g. Project inquiry" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent" />
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Message</label>
-                        <textarea rows="3" placeholder="Tell me about your needs…" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider px-6 py-4 rounded-lg transition shadow-lg shadow-emerald-900/30 flex items-center justify-center gap-2">
-                        <i class="fa-regular fa-paper-plane"></i> Send Message
-                    </button>
+            <div class="contact-form" style="background: #fff; padding: 32px; border-radius: 16px; border: 1px solid #e2e8f0;">
+                <form action="#" method="POST">
+                    <input type="text" placeholder="Your Name" required />
+                    <input type="email" placeholder="Email Address" required />
+                    <input type="text" placeholder="Country" />
+                    <input type="text" placeholder="Subject" />
+                    <textarea rows="4" placeholder="Your message…"></textarea>
+                    <button type="submit"><i class="fa-regular fa-paper-plane"></i> Send Message</button>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- ============================================================ -->
-    <!--  FOOTER                                                       -->
-    <!-- ============================================================ -->
-    <footer class="bg-slate-900 text-slate-400 py-8 px-6 text-center text-xs border-t border-slate-800">
-        <p>&copy; 2026 <span class="text-white font-semibold">Zedagim Tesfaye Tantu</span> – Digital Irrigation Intelligence</p>
-        <p class="mt-1 text-slate-500">
-            <i class="fa-regular fa-satellite-dish mr-1"></i> Satellite geospatial data for climate‑smart agriculture
-        </p>
-        <p class="mt-2 text-[10px] text-slate-600">
-            <i class="fa-regular fa-shield-halved mr-1"></i> Protect your farmland – monitor by system
-        </p>
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 <span>Zedagim Tesfaye Tantu</span> – Digital Irrigation Intelligence</p>
+            <p style="margin-top: 4px;"><i class="fa-regular fa-satellite-dish"></i> Satellite geospatial data for climate‑smart agriculture</p>
+            <p style="margin-top: 8px; font-size: 0.7rem; color: #475569;"><i class="fa-regular fa-shield-halved"></i> Protect your farmland – monitor by system</p>
+        </div>
     </footer>
 
 </body>
